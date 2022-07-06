@@ -963,7 +963,7 @@ public final class Subject implements java.io.Serializable {
             Set<Principal> thatPrincipals;
             synchronized(that.principals) {
                 // avoid deadlock from dual locks
-                thatPrincipals = new HashSet<>(that.principals);
+                thatPrincipals = new LinkedList<>(that.principals);
             }
             if (!principals.equals(thatPrincipals)) {
                 return false;
@@ -972,7 +972,7 @@ public final class Subject implements java.io.Serializable {
             Set<Object> thatPubCredentials;
             synchronized(that.pubCredentials) {
                 // avoid deadlock from dual locks
-                thatPubCredentials = new HashSet<>(that.pubCredentials);
+                thatPubCredentials = new LinkedList<>(that.pubCredentials);
             }
             if (!pubCredentials.equals(thatPubCredentials)) {
                 return false;
@@ -981,7 +981,7 @@ public final class Subject implements java.io.Serializable {
             Set<Object> thatPrivCredentials;
             synchronized(that.privCredentials) {
                 // avoid deadlock from dual locks
-                thatPrivCredentials = new HashSet<>(that.privCredentials);
+                thatPrivCredentials = new LinkedList<>(that.privCredentials);
             }
             return privCredentials.equals(thatPrivCredentials);
         }
@@ -1625,7 +1625,7 @@ public final class Subject implements java.io.Serializable {
         ClassSet(int which, Class<T> c) {
             this.which = which;
             this.c = c;
-            set = new HashSet<T>();
+            set = new LinkedList<T>();
 
             switch (which) {
             case Subject.PRINCIPAL_SET:
